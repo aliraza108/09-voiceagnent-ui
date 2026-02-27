@@ -1,0 +1,301 @@
+.orb-container {
+  --orb-size: 280px;
+  position: relative;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .orb-container {
+    --orb-size: 220px;
+  }
+}
+
+.orb-body,
+.orb-glow-ring,
+.orb-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+}
+
+.orb-glow-ring {
+  filter: blur(1px);
+}
+
+.orb-body {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent-glow) 45%, transparent);
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 45%),
+    radial-gradient(circle at 70% 72%, rgba(255, 255, 255, 0.08), transparent 42%),
+    linear-gradient(130deg, rgba(124, 58, 237, 0.95), rgba(42, 42, 64, 0.85));
+}
+
+.orb-inner-gradient {
+  position: absolute;
+  inset: -18%;
+  border-radius: 9999px;
+  opacity: 0.65;
+  background: conic-gradient(
+    from 0deg,
+    rgba(168, 85, 247, 0.85),
+    rgba(6, 182, 212, 0.55),
+    rgba(192, 132, 252, 0.7),
+    rgba(168, 85, 247, 0.85)
+  );
+  animation: orb-spin 6s linear infinite;
+}
+
+.orb-ripple {
+  opacity: 0;
+  transform: scale(1);
+  border: 2px solid transparent;
+}
+
+.orb-wave-bars,
+.thinking-dots {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orb-wave-bars {
+  display: none;
+  align-items: flex-end;
+  gap: 5px;
+  height: 46px;
+}
+
+.wave-bar {
+  width: 4px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.86);
+  animation: wave 0.8s ease-in-out infinite;
+}
+
+.bar-1 {
+  animation-delay: 0.1s;
+}
+
+.bar-2 {
+  animation-delay: 0.2s;
+}
+
+.bar-3 {
+  animation-delay: 0.3s;
+}
+
+.bar-4 {
+  animation-delay: 0.4s;
+}
+
+.bar-5 {
+  animation-delay: 0.5s;
+}
+
+.bar-6 {
+  animation-delay: 0.6s;
+}
+
+.thinking-dots {
+  display: none;
+  gap: 9px;
+}
+
+.thinking-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.88);
+  animation: dot-bounce 1s ease-in-out infinite;
+}
+
+.thinking-dots span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.thinking-dots span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.orbit-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.p1 {
+  animation: orbit 2.4s linear infinite;
+}
+
+.p2 {
+  animation: orbit 2.4s linear infinite 0.8s;
+}
+
+.p3 {
+  animation: orbit 2.4s linear infinite 1.6s;
+}
+
+.orb-idle .orb-body {
+  animation: idle-pulse 3s ease-in-out infinite;
+}
+
+.orb-idle .orb-glow-ring {
+  box-shadow: 0 0 60px 15px rgba(124, 58, 237, 0.25);
+}
+
+.orb-listening .orb-body {
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.2), transparent 45%),
+    radial-gradient(circle at 72% 72%, rgba(255, 255, 255, 0.08), transparent 42%),
+    linear-gradient(140deg, rgba(6, 182, 212, 0.95), rgba(14, 116, 144, 0.92));
+}
+
+.orb-listening .orb-glow-ring {
+  box-shadow: 0 0 80px 20px rgba(6, 182, 212, 0.35);
+}
+
+.orb-listening .orb-ripple {
+  border-color: rgba(6, 182, 212, 0.7);
+  animation: ripple 1.2s ease-out infinite;
+}
+
+.orb-listening .ripple-2 {
+  animation-delay: 0.35s;
+}
+
+.orb-listening .ripple-3 {
+  animation-delay: 0.7s;
+}
+
+.orb-listening .orb-wave-bars {
+  display: flex;
+}
+
+.orb-thinking .orb-body {
+  background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.14), transparent 45%),
+    linear-gradient(140deg, rgba(168, 85, 247, 0.92), rgba(124, 58, 237, 0.8), rgba(42, 42, 64, 0.95));
+}
+
+.orb-thinking .orb-inner-gradient {
+  animation-duration: 4s;
+}
+
+.orb-thinking .orb-glow-ring {
+  box-shadow: 0 0 76px 18px rgba(168, 85, 247, 0.3);
+}
+
+.orb-thinking .thinking-dots,
+.orb-thinking .orbit-particle {
+  display: flex;
+  opacity: 1;
+}
+
+.orb-speaking .orb-body {
+  animation: speaking-pulse 0.8s ease-in-out infinite;
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.2), transparent 45%),
+    radial-gradient(circle at 72% 72%, rgba(255, 255, 255, 0.11), transparent 42%),
+    linear-gradient(130deg, rgba(192, 132, 252, 0.92), rgba(124, 58, 237, 0.82));
+}
+
+.orb-speaking .orb-glow-ring {
+  box-shadow: 0 0 100px 30px rgba(192, 132, 252, 0.4);
+}
+
+.orb-speaking .orb-ripple {
+  border-color: rgba(192, 132, 252, 0.55);
+  animation: ripple 1.8s ease-out infinite;
+}
+
+.orb-speaking .ripple-2 {
+  animation-delay: 0.5s;
+}
+
+.orb-speaking .ripple-3 {
+  animation-delay: 1s;
+}
+
+.orb-error .orb-body {
+  background: linear-gradient(140deg, rgba(239, 68, 68, 0.95), rgba(127, 29, 29, 0.92));
+}
+
+.orb-error .orb-glow-ring {
+  box-shadow: 0 0 72px 18px rgba(239, 68, 68, 0.35);
+}
+
+@keyframes idle-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes speaking-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+@keyframes orb-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    height: 10px;
+  }
+  50% {
+    height: 36px;
+  }
+}
+
+@keyframes dot-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(calc(var(--orb-size) / 2 + 18px)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(calc(var(--orb-size) / 2 + 18px)) rotate(-360deg);
+  }
+}
