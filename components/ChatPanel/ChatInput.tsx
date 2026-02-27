@@ -6,9 +6,10 @@ import { SendHorizontal } from "lucide-react";
 interface ChatInputProps {
   onSend: (message: string) => Promise<void>;
   disabled?: boolean;
+  hint?: string;
 }
 
-export function ChatInput({ onSend, disabled = false }: ChatInputProps) {
+export function ChatInput({ onSend, disabled = false, hint = "or hold mic button to speak" }: ChatInputProps) {
   const [value, setValue] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -35,7 +36,7 @@ export function ChatInput({ onSend, disabled = false }: ChatInputProps) {
           <SendHorizontal size={18} />
         </button>
       </div>
-      <p className="chat-input-hint">or hold mic button to speak</p>
+      {hint ? <p className="chat-input-hint">{hint}</p> : null}
     </form>
   );
 }

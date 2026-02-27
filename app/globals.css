@@ -67,6 +67,95 @@ input {
   position: relative;
 }
 
+.chat-workspace {
+  width: min(920px, 100%);
+  min-height: calc(100vh - 7rem);
+  border: 1px solid rgba(53, 56, 76, 0.72);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(16, 18, 31, 0.86), rgba(12, 13, 23, 0.9));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatgpt-header {
+  height: 56px;
+  border-bottom: 1px solid rgba(53, 56, 76, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.9rem;
+}
+
+.chatgpt-header p {
+  margin: 0;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.95rem;
+  color: #d7dced;
+}
+
+.open-voice-btn {
+  border: 1px solid rgba(59, 63, 86, 0.9);
+  border-radius: 999px;
+  background: rgba(24, 27, 43, 0.86);
+  color: #d7dced;
+  height: 34px;
+  padding: 0 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.open-voice-btn:hover {
+  border-color: var(--accent-primary);
+}
+
+.chatgpt-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.chatgpt-empty {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatgpt-empty h2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  color: #d7dced;
+  font-family: var(--font-heading), sans-serif;
+}
+
+.chatgpt-input-dock {
+  border-top: 1px solid rgba(53, 56, 76, 0.65);
+  padding: 0.85rem;
+}
+
+.chat-workspace .chat-input-wrap {
+  padding: 0;
+  border-top: 0;
+}
+
+.chat-workspace .chat-input-shell {
+  min-height: 54px;
+  background: rgba(22, 25, 40, 0.9);
+  border-color: rgba(59, 63, 86, 0.9);
+}
+
+.chat-workspace .message-row {
+  margin-bottom: 0.85rem;
+}
+
+.chat-workspace .message-bubble {
+  max-width: min(760px, 95%);
+}
+
 .hero-section {
   text-align: center;
   animation: rise-in 480ms ease-out both;
@@ -167,6 +256,12 @@ input {
   width: 100%;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.voice-top-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .mic-controls-wrap {
@@ -555,6 +650,11 @@ input {
 }
 
 @media (max-width: 700px) {
+  .chat-workspace {
+    min-height: calc(100vh - 9.5rem);
+    border-radius: 16px;
+  }
+
   .install-card {
     flex-direction: column;
     align-items: flex-start;

@@ -1,7 +1,9 @@
 "use client";
 
-import { MessageSquare, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { MessageSquare, AlertCircle, ChevronLeft } from "lucide-react";
 import { ChatPanel } from "@/components/ChatPanel/ChatPanel";
+import { ChatWorkspace } from "@/components/ChatPanel/ChatWorkspace";
 import { AppInstallCard } from "@/components/Controls/AppInstallCard";
 import { MicButton } from "@/components/Controls/MicButton";
 import { SessionControls } from "@/components/Controls/SessionControls";
@@ -12,6 +14,7 @@ import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 import { useVoiceSession } from "@/hooks/useVoiceSession";
 
 export function VoiceApp() {
+  const [mode, setMode] = useState<"chat" | "voice">("chat");
   const {
     sessionId,
     messages,
@@ -55,47 +58,66 @@ export function VoiceApp() {
 
   return (
     <main className="voice-app-shell">
-      <section className="hero-section">
-        <p className="hero-kicker">LIAM</p>
-        <h1>AI Voice Agent</h1>
-        <p className="hero-subtitle">Real-time conversations powered by advanced voice intelligence.</p>
-      </section>
+      {mode === "chat" ? (
+        <>
+          <ChatWorkspace messages={messages} onSendMessage={sendText} onStartVoiceMode={() => setMode("voice")} />
+          <AppInstallCard />
+        </>
+      ) : (
+        <>
+          <section className="hero-section">
+            <p className="hero-kicker">LIAM</p>
+            <h1>AI Voice Agent</h1>
+            <p className="hero-subtitle">Real-time conversations powered by advanced voice intelligence.</p>
+          </section>
 
-      <GlowCard className="orb-stage">
-        <VoiceOrb state={orbState} />
-        <StatusBar status={status} label={statusLabel} />
-        {error ? (
-          <p className="error-text">
-            <AlertCircle size={14} />
-            {error}
-          </p>
-        ) : null}
+          <GlowCard className="orb-stage">
+            <div className="voice-top-actions">
+              <button type="button" className="chat-toggle-btn" onClick={() => setMode("chat")}>
+                <ChevronLeft size={18} />
+                Back to chat
+              </button>
+            </div>
+            <VoiceOrb state={orbState} />
+            <StatusBar status={status} label={statusLabel} />
+            {error ? (
+              <p className="error-text">
+                <AlertCircle size={14} />
+                {error}
+              </p>
+            ) : null}
 
-        <div className="primary-controls">
-          <MicButton
-            recording={recorder.isRecording}
-            mode={micMode}
-            durationSec={recorder.durationSec}
-            onStart={startRecording}
-            onStop={stopRecording}
-            onModeChange={setMicMode}
+            <div className="primary-controls">
+              <MicButton
+                recording={recorder.isRecording}
+                mode={micMode}
+                durationSec={recorder.durationSec}
+                onStart={startRecording}
+                onStop={stopRecording}
+                onModeChange={setMicMode}
+              />
+              <button type="button" className="chat-toggle-btn" onClick={() => setChatOpen((prev) => !prev)}>
+                <MessageSquare size={18} />
+                Chat
+              </button>
+            </div>
+          </GlowCard>
+
+          <SessionControls
+            sessionId={sessionId}
+            wsConnected={wsConnected}
+            onNewSession={resetSession}
+            onClear={clearConversation}
           />
-          <button type="button" className="chat-toggle-btn" onClick={() => setChatOpen((prev) => !prev)}>
-            <MessageSquare size={18} />
-            Chat
-          </button>
-        </div>
-      </GlowCard>
-
-      <SessionControls
-        sessionId={sessionId}
-        wsConnected={wsConnected}
-        onNewSession={resetSession}
-        onClear={clearConversation}
-      />
-      <AppInstallCard />
-
-      <ChatPanel open={chatOpen} messages={messages} onClose={() => setChatOpen(false)} onSendMessage={sendText} />
+          <AppInstallCard />
+          <ChatPanel
+            open={chatOpen}
+            messages={messages}
+            onClose={() => setChatOpen(false)}
+            onSendMessage={sendText}
+          />
+        </>
+      )}
     </main>
   );
 }
