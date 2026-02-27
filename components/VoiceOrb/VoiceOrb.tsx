@@ -8,6 +8,7 @@ interface VoiceOrbProps {
 export function VoiceOrb({ state }: VoiceOrbProps) {
   return (
     <div className={`orb-container orb-${state}`}>
+      <div className="orb-ambient" />
       <div className="orb-glow-ring" />
 
       <div className="orb-ripple ripple-1" />
@@ -15,9 +16,11 @@ export function VoiceOrb({ state }: VoiceOrbProps) {
       <div className="orb-ripple ripple-3" />
 
       <div className="orb-body">
+        <div className="orb-grid" />
         <div className="orb-inner-gradient" />
+        <div className="orb-core" />
         <div className="orb-wave-bars">
-          {Array.from({ length: 7 }).map((_, i) => (
+          {Array.from({ length: 12 }).map((_, i) => (
             <div key={i} className={`wave-bar bar-${i}`} />
           ))}
         </div>

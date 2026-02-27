@@ -14,10 +14,18 @@
 
 .orb-body,
 .orb-glow-ring,
+.orb-ambient,
 .orb-ripple {
   position: absolute;
   inset: 0;
   border-radius: 9999px;
+}
+
+.orb-ambient {
+  inset: -26%;
+  opacity: 0.5;
+  filter: blur(14px);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.32), transparent 65%);
 }
 
 .orb-glow-ring {
@@ -26,17 +34,28 @@
 
 .orb-body {
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--accent-glow) 45%, transparent);
+  border: 1px solid rgba(192, 132, 252, 0.4);
   background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.16), transparent 45%),
     radial-gradient(circle at 70% 72%, rgba(255, 255, 255, 0.08), transparent 42%),
     linear-gradient(130deg, rgba(124, 58, 237, 0.95), rgba(42, 42, 64, 0.85));
+}
+
+.orb-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  opacity: 0.2;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.1) 78%, transparent);
 }
 
 .orb-inner-gradient {
   position: absolute;
   inset: -18%;
   border-radius: 9999px;
-  opacity: 0.65;
+  opacity: 0.7;
   background: conic-gradient(
     from 0deg,
     rgba(168, 85, 247, 0.85),
@@ -45,6 +64,15 @@
     rgba(168, 85, 247, 0.85)
   );
   animation: orb-spin 6s linear infinite;
+}
+
+.orb-core {
+  position: absolute;
+  inset: 20%;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 40% 35%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.1) 38%, transparent 72%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.14), transparent 65%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .orb-ripple {
@@ -63,13 +91,13 @@
 .orb-wave-bars {
   display: none;
   align-items: flex-end;
-  gap: 5px;
-  height: 46px;
+  gap: 4px;
+  height: 54px;
 }
 
 .wave-bar {
-  width: 4px;
-  height: 10px;
+  width: 3px;
+  height: 12px;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.86);
   animation: wave 0.8s ease-in-out infinite;
@@ -97,6 +125,26 @@
 
 .bar-6 {
   animation-delay: 0.6s;
+}
+
+.bar-7 {
+  animation-delay: 0.1s;
+}
+
+.bar-8 {
+  animation-delay: 0.2s;
+}
+
+.bar-9 {
+  animation-delay: 0.3s;
+}
+
+.bar-10 {
+  animation-delay: 0.4s;
+}
+
+.bar-11 {
+  animation-delay: 0.5s;
 }
 
 .thinking-dots {
@@ -147,6 +195,10 @@
   animation: idle-pulse 3s ease-in-out infinite;
 }
 
+.orb-idle .orb-ambient {
+  animation: ambient-idle 4s ease-in-out infinite;
+}
+
 .orb-idle .orb-glow-ring {
   box-shadow: 0 0 60px 15px rgba(124, 58, 237, 0.25);
 }
@@ -155,6 +207,11 @@
   background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.2), transparent 45%),
     radial-gradient(circle at 72% 72%, rgba(255, 255, 255, 0.08), transparent 42%),
     linear-gradient(140deg, rgba(6, 182, 212, 0.95), rgba(14, 116, 144, 0.92));
+}
+
+.orb-listening .orb-ambient {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.42), transparent 68%);
+  animation: ambient-listening 1s ease-in-out infinite;
 }
 
 .orb-listening .orb-glow-ring {
@@ -183,6 +240,10 @@
     linear-gradient(140deg, rgba(168, 85, 247, 0.92), rgba(124, 58, 237, 0.8), rgba(42, 42, 64, 0.95));
 }
 
+.orb-thinking .orb-ambient {
+  animation: ambient-thinking 2s linear infinite;
+}
+
 .orb-thinking .orb-inner-gradient {
   animation-duration: 4s;
 }
@@ -204,6 +265,11 @@
     linear-gradient(130deg, rgba(192, 132, 252, 0.92), rgba(124, 58, 237, 0.82));
 }
 
+.orb-speaking .orb-ambient {
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.44), transparent 68%);
+  animation: ambient-speaking 1.2s ease-in-out infinite;
+}
+
 .orb-speaking .orb-glow-ring {
   box-shadow: 0 0 100px 30px rgba(192, 132, 252, 0.4);
 }
@@ -223,6 +289,10 @@
 
 .orb-error .orb-body {
   background: linear-gradient(140deg, rgba(239, 68, 68, 0.95), rgba(127, 29, 29, 0.92));
+}
+
+.orb-error .orb-ambient {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.45), transparent 68%);
 }
 
 .orb-error .orb-glow-ring {
@@ -272,10 +342,10 @@
 @keyframes wave {
   0%,
   100% {
-    height: 10px;
+    height: 12px;
   }
   50% {
-    height: 36px;
+    height: 45px;
   }
 }
 
@@ -297,5 +367,48 @@
   }
   100% {
     transform: rotate(360deg) translateX(calc(var(--orb-size) / 2 + 18px)) rotate(-360deg);
+  }
+}
+
+@keyframes ambient-idle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.56;
+  }
+}
+
+@keyframes ambient-listening {
+  0%,
+  100% {
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes ambient-thinking {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.05);
+  }
+}
+
+@keyframes ambient-speaking {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.72;
   }
 }
