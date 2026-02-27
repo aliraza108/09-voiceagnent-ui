@@ -2,10 +2,10 @@
 
 import { MessageSquare, AlertCircle } from "lucide-react";
 import { ChatPanel } from "@/components/ChatPanel/ChatPanel";
+import { AppInstallCard } from "@/components/Controls/AppInstallCard";
 import { MicButton } from "@/components/Controls/MicButton";
 import { SessionControls } from "@/components/Controls/SessionControls";
 import { StatusBar } from "@/components/Controls/StatusBar";
-import { MobileAppBanner } from "@/components/MobileAppBanner/MobileAppBanner";
 import { GlowCard } from "@/components/UI/GlowCard";
 import { VoiceOrb } from "@/components/VoiceOrb/VoiceOrb";
 import { useAudioRecorder } from "@/hooks/useAudioRecorder";
@@ -55,8 +55,6 @@ export function VoiceApp() {
 
   return (
     <main className="voice-app-shell">
-      <MobileAppBanner />
-
       <section className="hero-section">
         <p className="hero-kicker">LIAM</p>
         <h1>AI Voice Agent</h1>
@@ -95,6 +93,7 @@ export function VoiceApp() {
         onNewSession={resetSession}
         onClear={clearConversation}
       />
+      <AppInstallCard />
 
       <ChatPanel open={chatOpen} messages={messages} onClose={() => setChatOpen(false)} onSendMessage={sendText} />
     </main>
